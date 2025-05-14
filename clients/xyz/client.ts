@@ -3,13 +3,13 @@ import { type LoginCredentials, type LoginResponse, type FormPage } from './type
 
 export class XYZClient {
   private baseUrl: string;
-  private credentials: { username: string; password: string };
+  private credentials: { login: string; password: string };
 
   constructor() {
     this.baseUrl = process.env.XYZ_URL || '';
     this.baseUrl = this.baseUrl.endsWith('/') ? this.baseUrl.slice(0, -1) : this.baseUrl;
     this.credentials = {
-      username: process.env.XYZ_LOGON || '',
+      login: process.env.XYZ_LOGIN || '',
       password: process.env.XYZ_PASSWORD || '',
     };
   }
@@ -55,15 +55,15 @@ export class XYZClient {
    * Submits the login form with the provided answer
    */
   public async login(answer: string): Promise<LoginResponse> {
-    const formData = new URLSearchParams();
-    formData.append('username', this.credentials.username);
+    const formData = new FormData();
+    formData.append('username', this.credentials.login);
     formData.append('password', this.credentials.password);
     formData.append('answer', answer);
 
     try {
       const response = await axios.post<string>(
         `${this.baseUrl}/`,
-        formData.toString(),
+        formData,
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

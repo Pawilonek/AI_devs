@@ -1,5 +1,5 @@
 import axios, { type AxiosResponse } from 'axios';
-import { type LoginCredentials, type LoginResponse, type FormPage } from './types';
+import { type LoginCredentials, type LoginResponse, type FormPage, type VerificationMessage } from './types';
 
 export class XYZClient {
   private baseUrl: string;
@@ -49,6 +49,23 @@ export class XYZClient {
     }
 
     return questionMatch[1].trim();
+  }
+
+  /**
+   * Sends a verification message to the robot
+   */
+  public async sendVerificationMessage(text: string, msgID: number): Promise<VerificationMessage> {
+    try {
+      const response = await axios.post<VerificationMessage>(
+        `${this.baseUrl}/verify`,
+        { text, msgID },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Failed to send verification message:', error);
+      throw error;
+    }
   }
 
   /**

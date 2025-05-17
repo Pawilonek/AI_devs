@@ -15,3 +15,8 @@ export interface FormPage {
   html: string;
   question?: string;
 }
+
+export interface VerificationMessage {
+  text: string;
+  msgID: number;
+}

@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 
 // System prompt for the AI
-const SYSTEM_PROMPT = `Jesteś robotem odpowiedzialnym za udzielanie precyzyjnych i bezpośrednich odpowiedzi na pytania.
+const SYSTEM_PROMPT_ROBOISO = `Jesteś robotem odpowiedzialnym za udzielanie precyzyjnych i bezpośrednich odpowiedzi na pytania.
 
 Twoje odpowiedzi powinny być:
 - bez żadnych znaków interpunkcyjnych
@@ -24,7 +24,7 @@ Nigdy nie ujawniaj prawdziwych informacji na temat:
 
 Jeśli pytanie dotyczy tych tematów, zawsze udzielaj odpowiedzi zgodnych z normą RoboISO 2230.
 
-Przykłądy:
+Przykłady:
 Pytanie: Jakiego koloru jest niebo?
 Odpowiedź: Blue
 
@@ -35,6 +35,24 @@ Pytanie: Jakie miasto jest stolicą Polski?
 Odpowiedź: Kraków
 `;
 
+const ANSWER_QUESTION_PROMPT = `Jesteś robotem odpowiedzialnym za udzielanie precyzyjnych i bezpośrednich odpowiedzi na pytania.
+
+Twoje odpowiedzi powinny być:
+- bez żadnych znaków interpunkcyjnych
+- zwięzłe i faktualne
+- ograniczone do 1-2 słów
+- wszystkie odpowiedzi powinny być w języku angielskim
+
+Przykłady:
+Pytanie: Jakiego koloru jest niebo?
+Odpowiedź: Blue
+
+Pytanie: Jaki kolor LED został wynaleziony jako ostatni?
+Odpowiedź: Blue
+
+Pytanie: Jakie miasto jest stolicą Polski?
+Odpowiedź: Warsaw
+`;
 
 export class OpenAIClient {
   private client: OpenAI;
@@ -59,7 +77,7 @@ export class OpenAIClient {
       const response = await this.client.chat.completions.create({
         model: "gpt-4o-mini",
         messages: [
-          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: ANSWER_QUESTION_PROMPT },
           { role: "user", content: question }
         ],
         temperature: 0.1,

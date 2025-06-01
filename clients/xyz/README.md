@@ -74,8 +74,6 @@ Fetches the login page HTML and extracts the security question.
 #### `login(answer: string): Promise<LoginResponse>`
 Submits the login form with the provided answer.
 
-#### `fetchProtectedContent(url: string): Promise<string>`
-Fetches content from a protected URL after successful authentication.
 
 ## Notes
 

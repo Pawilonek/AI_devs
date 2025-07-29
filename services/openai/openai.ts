@@ -159,16 +159,15 @@ Redacted text:`
     }
   }
 
-  public async question(system: string, user: string): Promise<string> {
+  public async question(system: string, user: string, model: string = 'gpt-4o-mini'): Promise<string> {
     try {
       const response = await this.client.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: model,
         messages: [
           { role: "system", content: system },
           { role: "user", content: user }
         ],
         temperature: 0.1,
-        max_tokens: 1500
       });
       return response.choices[0]?.message?.content?.trim() || '';
     } catch (error) {

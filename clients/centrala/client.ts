@@ -51,6 +51,17 @@ export class CentralaClient {
       throw error;
     }
   }
+
+  public async getFile(filename: string): Promise<any> {
+    try {
+      const response = await axios.get<string>(`${this.baseUrl}/data/${this.apikey}/${filename}`);
+      return response;
+    } catch (error) {
+      const axiosError = error as unknown as { response?: { data?: any } };
+      console.error('Failed to get file:', axiosError.response?.data || error);
+      throw error;
+    }
+  }
 }
 
 // Create a singleton instance

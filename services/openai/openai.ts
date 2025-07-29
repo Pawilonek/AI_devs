@@ -1,4 +1,5 @@
 import OpenAI from 'openai';
+import { ReadStream } from 'fs';
 
 // System prompt for the AI
 const SYSTEM_PROMPT_ROBOISO = `Jesteś robotem odpowiedzialnym za udzielanie precyzyjnych i bezpośrednich odpowiedzi na pytania.
@@ -127,6 +128,38 @@ Redacted text:`
       throw error;
     }
   }
+
+  public async transcribeAudio(audioStream: ReadStream): Promise<string> {
+    try {
+      const response = await this.client.audio.transcriptions.create({
+        file: audioStream,
+        model: "whisper-1"
+      });
+      return response.text;
+    } catch (error) {
+      console.error('Error transcribing audio:', error);
+      throw error;
+    }
+  }
+
+  public async question(system: string, user: string): Promise<string> {
+    try {
+      const response = await this.client.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "system", content: system },
+          { role: "user", content: user }
+        ],
+        temperature: 0.1,
+        max_tokens: 1500
+      });
+      return response.choices[0]?.message?.content?.trim() || '';
+    } catch (error) {
+      console.error('Error getting answer from OpenAI:', error);
+      throw error;
+    }
+  }
+
 }
 
 // Create a singleton instance

@@ -28,6 +28,17 @@ export class CentralaClient {
       throw error;
     }
   }
+
+  public async getCenzuraFile(): Promise<any> {
+    try {
+      const response = await axios.get<string>(`${this.baseUrl}/data/${this.apikey}/cenzura.txt`);
+      return response;
+    } catch (error) {
+      const axiosError = error as unknown as { response?: { data?: any } };
+      console.error('Failed to get cenzura file:', axiosError.response?.data || error);
+      throw error;
+    }
+  }
 }
 
 // Create a singleton instance

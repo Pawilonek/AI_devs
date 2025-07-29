@@ -90,6 +90,43 @@ export class OpenAIClient {
       throw error;
     }
   }
+
+
+  public async censor(text: string): Promise<string> {
+    try {
+      const response = await this.client.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [
+          {
+            role: "system",
+            content: "You are a text redaction assistant. Your task is to redact sensitive information from text according to specific rules while preserving the original text structure."
+          },
+          {
+            role: "user",
+            content: `Redact sensitive information from the following text according to these rules:
+
+1. Replace full names (first name and last name) with "CENZURA"
+2. Replace ages (numbers) with "CENZURA"
+3. Replace city names with "CENZURA"
+4. Replace street addresses (street name and house number) with "ul. CENZURA"
+
+Keep the original text format intact (dots, commas, spaces). Do not modify the text structure, only replace the specified sensitive information.
+
+Text to redact: ${text}
+
+Redacted text:`
+          }
+        ],
+        temperature: 0.1,
+        max_tokens: 150
+      });
+
+      return response.choices[0]?.message?.content?.trim() || text;
+    } catch (error) {
+      console.error('Error during text redaction:', error);
+      throw error;
+    }
+  }
 }
 
 // Create a singleton instance

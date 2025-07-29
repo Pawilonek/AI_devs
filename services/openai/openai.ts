@@ -142,6 +142,23 @@ Redacted text:`
     }
   }
 
+  public async vision(system: string, user: OpenAI.Chat.Completions.ChatCompletionContentPart[]): Promise<string> {
+    try {
+      const response = await this.client.chat.completions.create({
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: system },
+          { role: "user", content: user }
+        ],
+        max_tokens: 1500
+      });
+      return response.choices[0]?.message?.content?.trim() || '';
+    } catch (error) {
+      console.error('Error getting vision answer from OpenAI:', error);
+      throw error;
+    }
+  }
+
   public async question(system: string, user: string): Promise<string> {
     try {
       const response = await this.client.chat.completions.create({

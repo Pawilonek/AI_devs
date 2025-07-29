@@ -24,8 +24,9 @@ export class CentralaClient {
       });
       return response;
     } catch (error) {
-      console.error('Failed to report:', error);
-      throw error;
+      const axiosError = error as unknown as { response?: { data?: any } };
+      console.error('Failed to report:', axiosError.response?.data || error);
+      throw "error";
     }
   }
 
@@ -36,6 +37,17 @@ export class CentralaClient {
     } catch (error) {
       const axiosError = error as unknown as { response?: { data?: any } };
       console.error('Failed to get cenzura file:', axiosError.response?.data || error);
+      throw error;
+    }
+  }
+
+  public async getRobotIdFile(): Promise<any> {
+    try {
+      const response = await axios.get<string>(`${this.baseUrl}/data/${this.apikey}/robotid.json`);
+      return response;
+    } catch (error) {
+      const axiosError = error as unknown as { response?: { data?: any } };
+      console.error('Failed to get robotid file:', axiosError.response?.data || error);
       throw error;
     }
   }

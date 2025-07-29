@@ -177,6 +177,25 @@ Redacted text:`
     }
   }
 
+  public async generateImage(prompt: string): Promise<string> {
+    try {
+      const response = await this.client.images.generate({
+        model: "dall-e-3",
+        prompt: prompt,
+        n: 1,
+        size: "1024x1024",
+      });
+      const imageUrl = response.data?.[0]?.url;
+      if (!imageUrl) {
+        throw new Error('Image URL not found in OpenAI response');
+      }
+      return imageUrl;
+    } catch (error) {
+      console.error('Error generating image:', error);
+      throw error;
+    }
+  }
+
 }
 
 // Create a singleton instance

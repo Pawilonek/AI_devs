@@ -13,6 +13,7 @@
     "axios": "^1.9.0",
     "dotenv": "^16.5.0",
     "mathjs": "^14.4.0",
-    "openai": "^4.98.0"
+    "openai": "^4.98.0",
+    "@qdrant/js-client-rest": "^1.12.0"
   }
 }

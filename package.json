@@ -14,6 +14,7 @@
     "dotenv": "^16.5.0",
     "mathjs": "^14.4.0",
     "openai": "^4.98.0",
-    "@qdrant/js-client-rest": "^1.12.0"
+    "@qdrant/js-client-rest": "^1.12.0",
+    "neo4j-driver": "^5.26.0"
   }
 }

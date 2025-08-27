@@ -64,6 +64,16 @@ services:
     volumes:
       - .:/app
     command: ["bun", "run", "tasks/S04E04/server.ts"]
+    networks:
+      - proxy
+    ports:
+      - "3000:3000"
+
+
+networks:
+    proxy:
+        external: true
+
 
 volumes:
   qdrant_storage:

@@ -24,7 +24,7 @@ services:
     volumes:
       - qdrant_storage:/qdrant/storage
 
-  app:
+  s03e02_app:
     build: .
     container_name: s03e02_app
     depends_on:
@@ -56,6 +56,14 @@ services:
     volumes:
       - .:/app
     command: ["bun", "run", "tasks/S03E05/index.ts"]
+
+  s04e04_app:
+    build: .
+    container_name: s04e04_app
+    env_file: .env
+    volumes:
+      - .:/app
+    command: ["bun", "run", "tasks/S04E04/server.ts"]
 
 volumes:
   qdrant_storage:

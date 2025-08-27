@@ -65,6 +65,20 @@ Zbudować bezstanowe API (HTTPS) przyjmujące `POST { "instruction": string }`, 
   - `tasks/S04E04/report.ts` — zgłoszenie URL do Centrali (`/report`)
   - `tasks/S04E04/dev.test.ts` — testy parsera i integracyjne przykłady
 
+Uruchomienie lokalne (dev):
+
+```
+bun run tasks/S04E04/server.ts
+```
+
+Szybki test:
+
+```
+curl -s -X POST http://localhost:3000/api/dron \
+  -H 'Content-Type: application/json' \
+  -d '{"instruction":"jedno pole w prawo, potem na sam dół"}'
+```
+
 ### Obsługa błędów i brzegi
 - Brak/nieprawidłowy JSON: 200 z `description` pola startowego (nie przerywać scenariusza Centrali).
 - Brak `instruction`: j.w.
@@ -97,7 +111,7 @@ Zbudować bezstanowe API (HTTPS) przyjmujące `POST { "instruction": string }`, 
 ### Postęp prac nad mapą
 - Wygenerowano 16 kafelków i automatyczne opisy (`tiles_descriptions.json`).
 - Opisy zostały zweryfikowane ręcznie; przyjęto krótkie etykiety (≤2 słowa) dla każdego kafelka.
-- Następny krok: przeniesienie zaakceptowanych etykiet do `tasks/S04E04/map.ts`.
+- Etykiety przeniesione do `tasks/S04E04/map.ts`.
 - Uwaga dot. wymogu „bez rozpoznawania obrazu”:
   - OpenAI Vision wykorzystano jedynie jako narzędzie pomocnicze do wstępnego szkicu etykiet.
   - Finalny opis mapy w `map.ts` jest tekstowy, ręcznie zweryfikowany, a API nie używa Vision w trakcie działania.
@@ -125,8 +139,8 @@ Każda wartość to maksymalnie dwa słowa po polsku (np. "skały", "dwa drzewa"
 
 ### Plan prac i przypisanie ról
 - [x] Wyodrębnienie treści mapy 4×4 z obrazka i wpisanie do `map.ts`
-- [ ] Logika ruchu i clamping `logic.ts`
-- [ ] Serwer `server.ts` z logowaniem i zgodnym JSON
+- [x] Logika ruchu i clamping `logic.ts`
+- [x] Serwer `server.ts` z logowaniem i zgodnym JSON
 - [ ] Konfiguracja serwera i publikacja adresu przez człowieka
 - [ ] Aktualizacja ustawień .env przez człowieka
 - [ ] Zgłoszenie URL przez `report.ts` — DO ZROBIENIA (AI) po dostarczeniu publicznego URL i API key

@@ -1,0 +1,114 @@
+[
+  {
+    "row": 0,
+    "col": 0,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r0_c0.png",
+    "shortDescription": "znacznik mapy",
+    "longDescription": "Czarny punkt na białym tle, oznaczający lokalizację lub miejsce."
+  },
+  {
+    "row": 0,
+    "col": 1,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r0_c1.png",
+    "shortDescription": "trawa kwiat",
+    "longDescription": "Trawa z pojedynczym kwiatem na białym tle."
+  },
+  {
+    "row": 0,
+    "col": 2,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r0_c2.png",
+    "shortDescription": "drzewo trawa",
+    "longDescription": "Duże drzewo i rośliny na trawiastym terenie."
+  },
+  {
+    "row": 0,
+    "col": 3,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r0_c3.png",
+    "shortDescription": "domek jednorodzinny",
+    "longDescription": "Ilustracja domu z dwuspadowym dachem i kominem."
+  },
+  {
+    "row": 1,
+    "col": 0,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r1_c0.png",
+    "shortDescription": "trawa roślina",
+    "longDescription": "Wysoka trawa z rośliną pośrodku, na białym tle."
+  },
+  {
+    "row": 1,
+    "col": 1,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r1_c1.png",
+    "shortDescription": "wiatrak",
+    "longDescription": "Wiatrak na polu otoczony wysoką trawą."
+  },
+  {
+    "row": 1,
+    "col": 2,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r1_c2.png",
+    "shortDescription": "trawa roślina",
+    "longDescription": "Silueta trawy z pojedynczym kwiatem na białym tle."
+  },
+  {
+    "row": 1,
+    "col": 3,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r1_c3.png",
+    "shortDescription": "trawa roślina",
+    "longDescription": "Wysokie trawy i pojedynczy kwiat na dole kafelka."
+  },
+  {
+    "row": 2,
+    "col": 0,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r2_c0.png",
+    "shortDescription": "trawa pola",
+    "longDescription": "Wysoka trawa z pojedynczą, drobną rośliną na białym tle."
+  },
+  {
+    "row": 2,
+    "col": 1,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r2_c1.png",
+    "shortDescription": "trawa polna",
+    "longDescription": "Kafel przedstawia trawę z pojedynczą rośliną na białym tle."
+  },
+  {
+    "row": 2,
+    "col": 2,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r2_c2.png",
+    "shortDescription": "skały wybrzeże",
+    "longDescription": "Kilka dużych skał ustawionych na płaskiej powierzchni."
+  },
+  {
+    "row": 2,
+    "col": 3,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r2_c3.png",
+    "shortDescription": "drzewa trawa",
+    "longDescription": "Dwa drzewa na tle trawy i cienkiego podłoża."
+  },
+  {
+    "row": 3,
+    "col": 0,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r3_c0.png",
+    "shortDescription": "góry",
+    "longDescription": "Czarno-biały rysunek wysokich gór z wyraźnymi szczytami."
+  },
+  {
+    "row": 3,
+    "col": 1,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r3_c1.png",
+    "shortDescription": "góry",
+    "longDescription": "Strome, wysokie góry z widocznymi szczytami i zboczami."
+  },
+  {
+    "row": 3,
+    "col": 2,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r3_c2.png",
+    "shortDescription": "samochód osobowy",
+    "longDescription": "Kafelek przedstawia białe auto widziane z góry."
+  },
+  {
+    "row": 3,
+    "col": 3,
+    "file": "/Users/pawilonek/Code/AI_devs/my/tasks/S04E04/tiles/tile_r3_c3.png",
+    "shortDescription": "grotę",
+    "longDescription": "Jaskinia w skale, otwór wejściowy, brak roślinności."
+  }
+]

@@ -5,8 +5,11 @@
 - [x] Pobierz pliki wejściowe: PDF notatnika `notatnik-rafala.pdf` i `notes.json`
 - [x] Wyodrębnij tekst z PDF stron 1–18 (tekstowe)
   - [x] Skrypt: `extract_pdf_text.ts` zapisuje `context/notatnik-rafala.md` z nagłówkami stron
-- [ ] Przekonwertuj stronę 19 do obrazu i wykonaj OCR
+- [x] Przekonwertuj stronę 19 do obrazu
   - [x] Skrypt: `render_last_page.ts` zapisuje `context/notatnik-rafala_page19.png`
+- [x] Wykryj skrawki strony 19 i zapisz wycinki (upright)
+  - [x] Skrypt: `detect_scraps.ts` rysuje obramowania i zapisuje wycinki do `context/fragments/fragment_###.png`
+- [ ] Wykonaj OCR dla strony 19 (na całości albo na wycinkach)
 - [ ] Oczyść i scal tekst: strony 1–18 + wynik OCR (str. 19)
 - [ ] Przygotuj kontekst i reguły promptów dla LLM (uwzględnij pułapki)
 - [ ] Odpowiedz na pytania 01–05 korzystając z kontekstu
@@ -21,6 +24,9 @@
 ### Struktura katalogów (S04E05)an
 - `tasks/S04E05/source/` – oryginalne i wejściowe pliki: `notatnik-rafala.pdf`, `questions.json`
 - `tasks/S04E05/context/` – przygotowane materiały kontekstowe do LLM: `notatnik-rafala.md` (ekstrakt)
+  - `notatnik-rafala_page19.png` – wyrenderowana strona 19
+  - `notatnik-rafala_page19.boxes.png` – strona 19 z narysowanymi obramowaniami detekcji
+  - `fragments/fragment_###.png` – wyprostowane wycinki (upright) skrawków strony 19
 
 ---
 
@@ -154,6 +160,19 @@ Zaprojektować i zbudować narzędzie, które:
    - Zbierz odpowiedzi w obiekcie `{"01": ..., ..., "05": ...}`.
    - Wyślij przez `centralaClient.report('notes', answers)`.
    - Loguj odpowiedź serwera; parsuj `hint` i ewentualne statusy dla iteracji.
+
+### Wykrywanie skrawków strony 19 (zrealizowane)
+- Skrypt: `tasks/S04E05/detect_scraps.ts`
+- Technika:
+  - Konwersja obrazu do skali szarości → rozmycie Gaussa (kernel 7)
+  - Progowanie Otsu (odwrócone) → morfologiczne zamknięcie (ok. 1% rozmiaru obrazu) → dylatacja (ok. 0.6%)
+  - Kontury (RETR_EXTERNAL) → `minAreaRect` → narysowanie obramowań (zielone)
+  - Korekcja orientacji: normalizacja wierzchołków do [top-left, top-right, bottom-right, bottom-left] i `warpPerspective`
+- Progi/parametry:
+  - `minAreaRatio = 0.003`, `maxAreaRatio = 0.7` (szum odfiltrowany, duże tła pominięte)
+- Artefakty wyjściowe:
+  - `context/notatnik-rafala_page19.boxes.png` – strona z obramowaniami
+  - `context/fragments/fragment_###.png` – wyprostowane wycinki skrawków
 
 ### Jakość, koszty, cache
 - Jakość:

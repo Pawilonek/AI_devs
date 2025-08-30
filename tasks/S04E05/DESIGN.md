@@ -9,7 +9,8 @@
   - [x] Skrypt: `render_last_page.ts` zapisuje `context/notatnik-rafala_page19.png`
 - [x] Wykryj skrawki strony 19 i zapisz wycinki (upright)
   - [x] Skrypt: `detect_scraps.ts` rysuje obramowania i zapisuje wycinki do `context/fragments/fragment_###.png`
-- [ ] Wykonaj OCR dla strony 19 (na całości albo na wycinkach)
+- [x] Wykonaj OCR dla strony 19 (na całości albo na wycinkach)
+  - [x] Skrypt: `transcribe_fragments.ts` transkrybuje wycinki (OpenAI Vision) i zapisuje `context/page19_fragments_transcription.md`
 - [ ] Oczyść i scal tekst: strony 1–18 + wynik OCR (str. 19)
 - [ ] Przygotuj kontekst i reguły promptów dla LLM (uwzględnij pułapki)
 - [ ] Odpowiedz na pytania 01–05 korzystając z kontekstu
@@ -173,6 +174,26 @@ Zaprojektować i zbudować narzędzie, które:
 - Artefakty wyjściowe:
   - `context/notatnik-rafala_page19.boxes.png` – strona z obramowaniami
   - `context/fragments/fragment_###.png` – wyprostowane wycinki skrawków
+
+### Kolejność uruchamiania (skrót)
+1) Render strony 19 do obrazu PNG
+   - Komenda:
+     - `bun run tasks/S04E05/render_last_page.ts`
+   - Wyjście:
+     - `tasks/S04E05/context/notatnik-rafala_page19.png`
+
+2) Detekcja skrawków i zapis obramowań oraz wycinków
+   - Komenda:
+     - `bun run tasks/S04E05/detect_scraps.ts`
+   - Wyjście:
+     - `tasks/S04E05/context/notatnik-rafala_page19.boxes.png`
+     - `tasks/S04E05/context/fragments/fragment_###.png`
+
+3) Transkrypcja tekstu z wycinków (OpenAI Vision)
+   - Komenda:
+     - `bun run tasks/S04E05/transcribe_fragments.ts`
+   - Wyjście:
+     - `tasks/S04E05/context/page19_fragments_transcription.md`
 
 ### Jakość, koszty, cache
 - Jakość:

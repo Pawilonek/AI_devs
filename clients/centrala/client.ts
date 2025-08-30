@@ -25,8 +25,10 @@ export class CentralaClient {
       return response;
     } catch (error) {
       const axiosError = error as unknown as { response?: { data?: any } };
-      console.error('Failed to report:', axiosError.response?.data || error);
-      throw "error";
+      const data = axiosError.response?.data || error;
+      console.error('Failed to report:', data);
+      // Propagate server response so callers can parse hints
+      throw data;
     }
   }
 

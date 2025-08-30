@@ -11,15 +11,14 @@
   - [x] Skrypt: `detect_scraps.ts` rysuje obramowania i zapisuje wycinki do `context/fragments/fragment_###.png`
 - [x] Wykonaj OCR dla strony 19 (na całości albo na wycinkach)
   - [x] Skrypt: `transcribe_fragments.ts` transkrybuje wycinki (OpenAI Vision) i zapisuje `context/page19_fragments_transcription.md`
-- [ ] Oczyść i scal tekst: strony 1–18 + wynik OCR (str. 19)
-- [ ] Przygotuj kontekst i reguły promptów dla LLM (uwzględnij pułapki)
-- [ ] Odpowiedz na pytania 01–05 korzystając z kontekstu
-- [ ] Zaimplementuj iterację z podpowiedziami (hint) z Centrali
-- [ ] Zbuduj raport w formacie JSON i wyślij na endpoint `/report`
+- [x] Oczyść i scal tekst: strony 1–18 + wynik OCR (str. 19)
+- [x] Przygotuj kontekst i reguły promptów dla LLM (uwzględnij pułapki)
+- [x] Odpowiedz na pytania 01–05 korzystając z kontekstu
+- [x] Zaimplementuj iterację z podpowiedziami (hint) z Centrali
+- [x] Zbuduj raport w formacie JSON i wyślij na endpoint `/report`
 - [ ] Dodaj logowanie, walidację, cache promptów i retry
-- [ ] Włącz kontrolę jakości (human-in-the-loop) dla strony 19 i odpowiedzi granicznych
-- [ ] Udostępnij skrypt CLI do uruchomienia zadania
 - [x] Skrypt: pobierz `notes.json` i wypisz pytania (`list_questions.ts`)
+  - [x] Skrypt: odpowiedz na pytania (`answer_questions.ts`) – wypisz na ekran
   - [x] Zapisz pytania do `tasks/S04E05/source/questions.json`
 
 ### Struktura katalogów (S04E05)an
@@ -102,7 +101,7 @@ Zaprojektować i zbudować narzędzie, które:
 - `tasks/S04E05/pdf.ts` – narzędzia PDF: ładowanie, ekstrakcja tekstu 1–18, render strony 19 do PNG.
 - `tasks/S04E05/ocr.ts` – OCR strony 19: Vision (OpenAI), fallback Tesseract; pre/postprocessing obrazu.
 - `tasks/S04E05/questions.ts` – pobranie `notes.json` z Centrali (użyj `centralaClient.getFile('notes.json')`).
-- `tasks/S04E05/qa.ts` – logika Q&A nad pełnym kontekstem; obsługa wyjątków i pułapek per pytanie.
+- `tasks/S04E05/answer_questions.ts` – generacja odpowiedzi na pytania nad pełnym kontekstem; obsługa wyjątków i pułapek per pytanie; wypisuje odpowiedzi na stdout.
 - `tasks/S04E05/date.ts` – deterministyczne wyliczenia dat (pytanie 04) w formacie `YYYY-MM-DD`.
 - `tasks/S04E05/report.ts` – wysyłka na `/report` przez `centralaClient.report('notes', answers)`; obsługa odpowiedzi z hintami.
 - `tasks/S04E05/types.ts` – typy: `Question`, `Answers`, `HintResponse` itp.
@@ -125,6 +124,7 @@ Zaprojektować i zbudować narzędzie, które:
   - `CENTRALA_SECRET=your_api_key`
 - Uruchamianie (CLI):
   - `bun run tasks/S04E05/index.ts`
+  - `bun run tasks/S04E05/answer_questions.ts` (drukuje odpowiedzi na ekran)
 
 ### Szczegóły kroków
 1) Pobieranie
@@ -194,6 +194,21 @@ Zaprojektować i zbudować narzędzie, które:
      - `bun run tasks/S04E05/transcribe_fragments.ts`
    - Wyjście:
      - `tasks/S04E05/context/page19_fragments_transcription.md`
+
+4) Odpowiadanie na pytania (stdout)
+   - Komenda:
+     - `bun run tasks/S04E05/answer_questions.ts`
+   - Wyjście:
+     - Wypisane odpowiedzi w formacie:
+       - `01: ...`
+       - `02: ...`
+       - `03: ...`
+       - `04: YYYY-MM-DD`
+       - `05: ...`
+     - Pętla zgłaszania do centrali i zapis podpowiedzi:
+       - Wysyłka odpowiedzi do `/report` zadania `notes`
+       - Persystencja każdej próby do `tasks/S04E05/context/hints/attempt_XX_*`
+       - Jeśli centrala zwróci podpowiedzi (hinty), kolejna iteracja dołącza je do promptu i unika poprzednich odpowiedzi
 
 ### Jakość, koszty, cache
 - Jakość:

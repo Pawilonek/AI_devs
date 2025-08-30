@@ -68,8 +68,10 @@ async function renderLastPageToPng(pdfPath: string) {
     throw new Error(`Nie znaleziono wygenerowanego pliku: ${tmpBase}-<n>.png`);
   }
   // Prefer the one matching lastPage if present
-  const preferred = candidates.find((p) => p.endsWith(`-${lastPage}.png`)) || candidates[0];
-
+  const preferred = candidates.find((p) => p.endsWith(`-${lastPage}.png`)) ?? candidates[0];
+  if (!preferred) {
+    throw new Error('Nie udało się zlokalizować pliku wynikowego pdftoppm');
+  }
   fs.renameSync(preferred, finalOutPath);
   // Cleanup any remaining temp files
   for (const c of candidates) {

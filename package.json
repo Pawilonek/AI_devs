@@ -11,11 +11,14 @@
   },
   "dependencies": {
     "@qdrant/js-client-rest": "^1.12.0",
+    "@techstark/opencv-js": "^4.11.0-release.1",
     "axios": "^1.9.0",
     "dotenv": "^16.5.0",
     "mathjs": "^14.4.0",
     "neo4j-driver": "^5.26.0",
     "openai": "^4.98.0",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^5.4.149",
     "sharp": "^0.34.3"
   }
 }
